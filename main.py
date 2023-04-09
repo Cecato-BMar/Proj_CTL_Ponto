@@ -1,5 +1,16 @@
 # Projeto edstinado a controlar o ponto de um funcionário no trabaljo.
 from datetime import datetime
+import openpyxl
+
+
+#criando um arquivo excell 
+workbook = openpyxl.Workbook()
+workbook = openpyxl.load_workbook('Controle de Ponto.xlsx')
+# Selecionando uma página
+pag = workbook.active
+# Criando as colunas
+pag['A1'] = 'Entrada'
+pag['B1'] = 'Saída'
  #1- Pegar a data e hora
 2
 
@@ -32,24 +43,38 @@ def ponto(opcao):
         if opcao == 1 :
             dt1 = datetime.now()
             ent.append(dt1.strftime('%d /%m/ %Y %H:%M:%S ')) 
+            
             opcao = int(input("Opção : "))
+            
+     
         elif opcao == 2 :
             dt2 = datetime.now()
             saida.append(dt2.strftime('%d /%m/ %Y %H:%M:%S '))
+            
             opcao = int(input("Opção : "))
+           
+            
        
      print(f"Horários de entrada: {ent} "   )
      print(f"Horários de saida:   {saida} "   )
      print("Saindo...")
+     for i in range(len(ent)):
+        dados = (ent[i],saida[i])
+        pag.append(dados)
+        
+    
+     workbook.save('Controle de Ponto.xlsx')
+     
      
     
 painel()
-   
-   
 
 
 
    
+
+
+
     
 
 
