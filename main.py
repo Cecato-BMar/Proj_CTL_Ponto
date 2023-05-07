@@ -1,6 +1,8 @@
-# Projeto edstinado a controlar o ponto de um funcionário no trabaljo.
+# Projeto edstinado a controlar o ponto de um funcionário no trabalho.
 from datetime import datetime
 import openpyxl
+from tkinter import *
+from tkinter import ttk
 
 
 #criando um arquivo excell 
@@ -12,7 +14,7 @@ pag = workbook.active
 pag['A1'] = 'Entrada'
 pag['B1'] = 'Saída'
  #1- Pegar a data e hora
-2
+
 
 ent = []
 saida = []
@@ -39,7 +41,9 @@ def painel():
    
 def ponto(opcao):
      while opcao != 3 :
-            
+        if opcao < 1 or opcao > 3:
+            print("Opção inválida, tente novamente!")
+            opcao = int(input("Opção : "))    
         if opcao == 1 :
             dt1 = datetime.now()
             ent.append(dt1.strftime('%d /%m/ %Y %H:%M:%S ')) 
@@ -55,20 +59,28 @@ def ponto(opcao):
            
             
        
-     print(f"Horários de entrada: {ent} "   )
-     print(f"Horários de saida:   {saida} "   )
-     print("Saindo...")
+     
      for i in range(len(ent)):
         dados = (ent[i],saida[i])
         pag.append(dados)
-        
-    
+       
+     exibir()
+     #3- Salvar em um arquivo excell
      workbook.save('Controle de Ponto.xlsx')
      
-     
+def exibir():
+    # Obtenha o número de linhas e colunas da planilha
+    num_linhas = pag.max_row
+    num_colunas = pag.max_column
+    print("-"*5 + "ENTRADA" + "-"*5 + " "* 10 + "-"*5 + "SAÌDA" + "-"*5)
+    # Itere sobre as células da planilha e imprima o valor de cada célula
+    for i in range(2, num_linhas + 1):
+        for j in range(1, num_colunas + 1):
+            cell_value = pag.cell(row=i, column=j).value
+            print(cell_value, end="\t")
+        print()  # Adicione uma nova linha após cada linha de células
     
 painel()
-
 
 
    
@@ -86,7 +98,4 @@ painel()
 
 
 
-
-
- #3- Salvar em um arquivo excell
 
