@@ -22,15 +22,10 @@ d_ent = []
 h_ent = []
 d_saida = []
 h_saida = []
-dt_ent = datetime.now()
-dt_saida = datetime.now()
-dt2 = (dt_ent.strftime('%d /%m/ %Y'))
-hr_ent = datetime.now()
-hr_saida = datetime.now()
-hr2 = (hr_ent.strftime('%H:%M:%S'))
-exib_h_ent = dt_ent
-exib_h_saida = hr_saida
-
+dt = datetime.now()
+hr = datetime.now()
+exib_h_ent = dt
+exib_h_saida = hr
 
 
 
@@ -61,12 +56,14 @@ ultima_h_ent = ctk.StringVar()
 ultima_h_saida = ctk.StringVar()
 
 # Função para pegar a entrada
-def entrada():     
-    dt = (dt.strftime('%d /%m/ %Y'))        
-    hr = (hr.strftime('%H:%M:%S')) 
-    d_ent.append(dt)    
+def entrada():
+    dt = datetime.now()     
+    dt_e = (dt.strftime('%d /%m/ %Y'))  
+    dt = datetime.now()      
+    hr = (dt.strftime('%H:%M:%S')) 
+    d_ent.append(dt_e)    
     h_ent.append(hr)   
-    exib_d_ent = dt
+    exib_d_ent = dt_e
     exib_h_ent = hr
     print("Dia entrada:" + exib_d_ent + "--- Hora entrada:"+ exib_h_ent)
     ultima_d_ent.set(exib_d_ent) # atualizar a variável com a última data
@@ -76,12 +73,14 @@ def entrada():
       
     
     # Função para pegar a saída
-def bsaida():      
-    dt = (dt_saida.strftime('%d /%m/ %Y'))    
-    hr = (hr_saida.strftime('%H:%M:%S'))       
-    d_saida.append(dt)
+def bsaida():
+    dt = datetime.now()      
+    dt_s = (dt.strftime('%d /%m/ %Y')) 
+    dt = datetime.now()   
+    hr = (dt.strftime('%H:%M:%S'))       
+    d_saida.append(dt_s)
     h_saida.append(hr)    
-    exib_d_saida = dt
+    exib_d_saida = dt_s
     exib_h_saida = hr
     print("Dia saída:" + exib_d_saida + "--- Hora saída:"+ exib_h_saida)
     ultima_d_saida.set(exib_d_saida) # atualizar a variável com a última data
