@@ -15,7 +15,8 @@ pag = workbook.active
 pag['A1'] = 'Dia Entrada'
 pag['B1'] = 'Hora entrada'
 pag['C1'] = 'Dia saíada'
-pag['D1'] = 'Hora Saída' 
+pag['D1'] = 'Hora Saída'
+pag['E1'] = 'Horas Trabalhadas' 
 
 #1- Pegar a data e hora Criando variáveis
 d_ent = []
@@ -24,8 +25,9 @@ d_saida = []
 h_saida = []
 f_data = '%d /%m/ %Y'
 f_hora = '%H:%M:%S'
-
-
+exib_h_ent = datetime
+exib_h_saida = datetime
+horas_trab = []
 
 #Criar a janela principal
 janela = ctk.CTk()
@@ -83,13 +85,24 @@ def bsaida():
     ultima_h_saida.set(exib_h_saida) # atualizar a variável com a última data
     label_saida.configure(textvariable=ultima_h_saida) # atualizar o rótulo com a última data 
     d_saida.append(exib_d_saida)
-    h_saida.append(exib_h_saida)    
+    h_saida.append(exib_h_saida)  
     
-def gravar():    
+def horas_trabalhadas():
+    
+    
+    for i in range(len(h_ent)):        
+        horas =  datetime.strptime(h_saida[i], f_hora)-datetime.strptime(h_ent[i], f_hora)        
+        horas_trab.append(horas)          
+    print(horas_trab)
+    print(horas)
+    
+    
+def gravar(): 
+    horas_trabalhadas()   
     for i in range(len(d_ent)):        
-        dados = (d_ent[i],h_ent[i],d_saida[i], h_saida[i])       
+        dados = (d_ent[i],h_ent[i],d_saida[i], h_saida[i], horas_trab[i])       
         pag.append(dados)
-        print(dados)
+        #print(dados)
     workbook.save('Controle de Ponto.xlsx')             
     messagebox.showinfo("Dados Salvos", "Os dados foram salvos com sucesso!")            
      
