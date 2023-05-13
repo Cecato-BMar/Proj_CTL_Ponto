@@ -60,11 +60,11 @@ def entrada():
     dt = datetime.now()     
     dt_e = (dt.strftime('%d /%m/ %Y'))  
     dt = datetime.now()      
-    hr = (dt.strftime('%H:%M:%S')) 
+    hr_e = (dt.strftime('%H:%M:%S')) 
     d_ent.append(dt_e)    
-    h_ent.append(hr)   
+    h_ent.append(hr_e)   
     exib_d_ent = dt_e
-    exib_h_ent = hr
+    exib_h_ent = hr_e
     print("Dia entrada:" + exib_d_ent + "--- Hora entrada:"+ exib_h_ent)
     ultima_d_ent.set(exib_d_ent) # atualizar a variável com a última data
     label_ent.configure(textvariable=ultima_d_ent) # atualizar o rótulo com a última data
@@ -77,11 +77,11 @@ def bsaida():
     dt = datetime.now()      
     dt_s = (dt.strftime('%d /%m/ %Y')) 
     dt = datetime.now()   
-    hr = (dt.strftime('%H:%M:%S'))       
+    hr_s = (dt.strftime('%H:%M:%S'))       
     d_saida.append(dt_s)
-    h_saida.append(hr)    
+    h_saida.append(hr_s)    
     exib_d_saida = dt_s
-    exib_h_saida = hr
+    exib_h_saida = hr_s
     print("Dia saída:" + exib_d_saida + "--- Hora saída:"+ exib_h_saida)
     ultima_d_saida.set(exib_d_saida) # atualizar a variável com a última data
     label_saida.configure(textvariable=ultima_d_saida) # atualizar o rótulo com a última data
