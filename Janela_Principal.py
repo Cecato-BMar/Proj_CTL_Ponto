@@ -54,7 +54,8 @@ ultima_d_ent = ctk.StringVar()
 ultima_d_saida = ctk.StringVar()
 ultima_h_ent = ctk.StringVar()
 ultima_h_saida = ctk.StringVar()
-
+ht = ctk.StringVar()
+saldo_h = ctk.StringVar()
 #Função para pegar a hora atual
 def pegar_hora():
     dt = datetime.now()
@@ -87,14 +88,16 @@ def bsaida():
     d_saida.append(exib_d_saida)
     h_saida.append(exib_h_saida)  
     
-def horas_trabalhadas():
-    
-    
+def horas_trabalhadas():    
     for i in range(len(h_ent)):        
         horas =  datetime.strptime(h_saida[i], f_hora)-datetime.strptime(h_ent[i], f_hora)        
-        horas_trab.append(horas)          
+        horas_trab.append(horas)   
+    total_horas = sum(horas_trab, timedelta())               
     print(horas_trab)
-    print(horas)
+    print(total_horas)
+    ht.set(total_horas) # atualizar a variável com a última data
+    label_htrabalhadas.configure(textvariable=ht) # atualizar o rótulo com a última data
+    ht.set(total_horas) # atualizar a variável com a última data 
     
     
 def gravar(): 
@@ -105,7 +108,22 @@ def gravar():
         #print(dados)
     workbook.save('Controle de Ponto.xlsx')             
     messagebox.showinfo("Dados Salvos", "Os dados foram salvos com sucesso!")            
+    print(total_horas())
+    
+    
+def total_horas():
+    total_timedelta = timedelta()
+
+    for row in pag.iter_rows(min_row=2, values_only=True):
+        valor_celula = row[5 - 1]  # Subtrai 1 porque as colunas no Excel são indexadas a partir de 1
+        if isinstance(valor_celula, timedelta):
+            total_timedelta += valor_celula
+    saldo_h.set(total_timedelta) # atualizar a variável com a última data
+    label_totais.configure(textvariable=saldo_h) # atualizar o rótulo com a última data
+    saldo_h.set(total_timedelta) # atualizar a variável com a última data 
+    return total_timedelta 
      
+
 
     
 # Botão de entrada e label
@@ -120,6 +138,13 @@ label_saida = ctk.CTkLabel(master=frame_saida, text="****SAÍDA****", fg_color="
 label_saida.pack(side="left", padx=15)
 #Criar um botão para salvar
 btn_gravar = ctk.CTkButton(master=frame_gravar, text="Gravar", command=gravar)
-btn_gravar.pack(pady=30)        
-    
+btn_gravar.pack(pady=30 )        
+# Label horas trabalhadas no dia
+label_htrabalhadas = ctk.CTkLabel(master=frame_gravar, text="****Horas Trabalhadas****", fg_color="red", corner_radius=20)
+label_htrabalhadas.pack(side="left", padx=15, pady=10)
+# Label horas total
+label_totais = ctk.CTkLabel(master=frame_gravar, text="******Horas Totais******", fg_color="teal", corner_radius=20)
+label_totais.pack(side="right", padx=15, pady=10)
+
+
 janela.mainloop()
