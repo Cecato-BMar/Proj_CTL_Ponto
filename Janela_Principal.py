@@ -136,8 +136,7 @@ class AppPonto:
         Altera a janela com a quantidade total de horas trabalhadas. 
         '''
         for i in range(len(self.h_ent)):       
-            #horas = datetime.strptime(self.h_saida[i], FORMATHORA) - datetime.strptime(self.h_ent[i], FORMATHORA)
-            horas = datetime.strftime(self.h_saida[i] - self.h_ent[i], FORMATHORA)
+            horas = datetime.strptime(self.h_saida[i], FORMATHORA) - datetime.strptime(self.h_ent[i], FORMATHORA)
             self.horas_trab.append(horas)   
             print(self.horas_trab)
 
@@ -146,7 +145,6 @@ class AppPonto:
         self.ht.set(total_horas) # atualizar a variável com a última data
         self.label_htrabalhadas.configure(textvariable=self.ht) # atualizar o rótulo com a última data
         self.ht.set(total_horas) # atualizar a variável com a última data 
-        
         
     def gravar(self) -> None: 
         '''
@@ -160,7 +158,6 @@ class AppPonto:
         self.workbook.save('Controle de Ponto.xlsx')             
         messagebox.showinfo("Dados Salvos", "Os dados foram salvos com sucesso!")            
         print(self.total_horas())
-        
         
     def total_horas(self):
         '''
