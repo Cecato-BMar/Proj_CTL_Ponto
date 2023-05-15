@@ -92,8 +92,7 @@ def horas_trabalhadas():
     for i in range(len(h_ent)):        
         horas =  datetime.strptime(h_saida[i], f_hora)-datetime.strptime(h_ent[i], f_hora)        
         horas_trab.append(horas)   
-    total_horas = sum(horas_trab, timedelta())               
-    print(horas_trab)
+    total_horas = sum(horas_trab, timedelta())    
     print(total_horas)
     ht.set(total_horas) # atualizar a variável com a última data
     label_htrabalhadas.configure(textvariable=ht) # atualizar o rótulo com a última data
