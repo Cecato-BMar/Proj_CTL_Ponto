@@ -56,14 +56,12 @@ def ponto(opcao):
             
             opcao = int(input("Opção : "))
            
-            
-       
-     
      for i in range(len(ent)):
         dados = (ent[i],saida[i])
         pag.append(dados)
        
      exibir()
+     
      #3- Salvar em um arquivo excell
      workbook.save('Controle de Ponto.xlsx')
      

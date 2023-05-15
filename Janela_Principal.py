@@ -1,5 +1,5 @@
 import customtkinter as ctk    
-from datetime import datetime, timedelta #
+from datetime import datetime, timedelta
 import openpyxl                
 from tkinter import messagebox 
 
@@ -58,7 +58,7 @@ class AppPonto:
         self.label_ent.pack(side="left", padx=15)
 
         # Botão de saída e label
-        self.btn_saida = ctk.CTkButton(master=self.frame_saida, text="Saída", command=self.bsaida)
+        self.btn_saida = ctk.CTkButton(master=self.frame_saida, text="Saída", command=self.saida)
         self.btn_saida.pack(side="left", padx=5)
         self.label_saida = ctk.CTkLabel(master=self.frame_saida, text="****SAÍDA****", fg_color="red", corner_radius=20)
         self.label_saida.pack(side="left", padx=15)
@@ -93,36 +93,37 @@ class AppPonto:
         self.pag['D1'] = 'Hora Saída'
         self.pag['E1'] = 'Horas Trabalhadas' 
 
-    def pegar_hora(self) -> list[datetime, datetime]:
+    def pegar_datahora_atual(self) -> list[datetime, datetime]:
         '''
-        Retorna a hora atual.
+        Retorna a data e hora atual.
         '''
         dt = datetime.now()
-        data = (dt.strftime(FORMATDATA))
-        hora = (dt.strftime(FORMATHORA)) 
-        return [data, hora]
+        return [dt.strftime(FORMATHORA), dt.strftime(FORMATDATA)]
 
     def entrada(self) -> None:    
         '''
         Retorna a entrada.
         '''
-        exib_d_ent = self.pegar_hora()[0]
-        exib_h_ent = self.pegar_hora()[1]
+        exib_h_ent, exib_d_ent = self.pegar_datahora_atual()
+
         print(f"Dia entrada: {exib_d_ent} --- Hora entrada: {exib_h_ent}")
+
         self.ultima_d_ent.set(exib_d_ent) # atualizar a variável com a última data
         self.label_ent.configure(textvariable=self.ultima_d_ent) # atualizar o rótulo com a última data
-        self.ultima_h_ent.set(exib_h_ent) # atualizar a variável com a última data
-        self.label_ent.configure(textvariable=self.ultima_h_ent) # atualizar o rótulo com a última data
+
+        self.ultima_h_ent.set(exib_h_ent) # atualizar a variável com a última hora
+        self.label_ent.configure(textvariable=self.ultima_h_ent) # atualizar o rótulo com a última hora
+
         self.d_ent.append(exib_d_ent)    
         self.h_ent.append(exib_h_ent)
         
-    def bsaida(self):  
+    def saida(self) -> None:  
         '''
-        Retorna a saída.
+        ??
         '''  
-        exib_d_saida = self.pegar_hora()[0]
-        exib_h_saida = self.pegar_hora()[1]
-        print("Dia saída:" + exib_d_saida + "--- Hora saída:"+ exib_h_saida)
+        exib_h_saida, exib_d_saida = self.pegar_datahora_atual()
+
+        print(f"Dia saída: {exib_d_saida} --- Hora saída: {exib_h_saida}")
         self.ultima_d_saida.set(exib_d_saida) # atualizar a variável com a última data
         self.label_saida.configure(textvariable=self.ultima_d_saida) # atualizar o rótulo com a última data
         self.ultima_h_saida.set(exib_h_saida) # atualizar a variável com a última data
@@ -135,8 +136,11 @@ class AppPonto:
         Altera a janela com a quantidade total de horas trabalhadas. 
         '''
         for i in range(len(self.h_ent)):       
-            horas =  datetime.strptime(self.h_saida[i], FORMATHORA)-datetime.strptime(self.h_ent[i], FORMATHORA)        
+            #horas = datetime.strptime(self.h_saida[i], FORMATHORA) - datetime.strptime(self.h_ent[i], FORMATHORA)
+            horas = datetime.strftime(self.h_saida[i] - self.h_ent[i], FORMATHORA)
             self.horas_trab.append(horas)   
+            print(self.horas_trab)
+
         total_horas = sum(self.horas_trab, timedelta())    
         print(total_horas)
         self.ht.set(total_horas) # atualizar a variável com a última data
