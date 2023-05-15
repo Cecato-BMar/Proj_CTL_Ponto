@@ -1,4 +1,4 @@
-
+*.pytest
 Ponto_OO.py
 Testes.py
 __pycache__/ctktable.cpython-311.pyc
