@@ -13,9 +13,8 @@ pag = workbook.active
 # Criando as colunas
 pag['A1'] = 'Entrada'
 pag['B1'] = 'Saída'
+
  #1- Pegar a data e hora
-
-
 ent = []
 saida = []
 dt = datetime.now()
